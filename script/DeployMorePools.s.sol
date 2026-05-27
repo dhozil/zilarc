@@ -25,8 +25,8 @@ contract DeployMorePools is Script {
     address constant USDC = 0x3600000000000000000000000000000000000000;
 
     // Initial liquidity amounts (USDC has 6 decimals, tokens have 18)
-    uint256 constant INITIAL_USDC = 200 * 10 ** 6;     // 200 USDC
-    uint256 constant INITIAL_TOKEN = 200 * 10 ** 18;   // 200 tokens
+    uint256 constant INITIAL_USDC = 200 * 10 ** 6; // 200 USDC
+    uint256 constant INITIAL_TOKEN = 200 * 10 ** 18; // 200 tokens
 
     function run() external {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");

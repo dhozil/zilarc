@@ -12,11 +12,7 @@ contract DeployJett is Script {
 
         vm.startBroadcast(deployerPrivateKey);
 
-        ZilarcToken token = new ZilarcToken(
-            recipient,
-            recipient,
-            initialMint
-        );
+        ZilarcToken token = new ZilarcToken(recipient, recipient, initialMint);
 
         vm.stopBroadcast();
 
