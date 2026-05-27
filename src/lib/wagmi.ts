@@ -2,8 +2,8 @@ import { http, createConfig } from "wagmi";
 import { sepolia, arbitrum, base, optimism, polygon, avalanche, linea } from "viem/chains";
 import { coinbaseWallet, injected } from "wagmi/connectors";
 
-// Arc Testnet RPC - Blockdaemon
-const ARC_RPC_URL = "https://rpc.blockdaemon.testnet.arc.network";
+// Arc Testnet RPC - Circle
+const ARC_RPC_URL = import.meta.env.VITE_ARC_RPC_URL || "https://rpc.testnet.arc.network";
 
 // Arc Testnet chain definition
 export const arcTestnet = {
