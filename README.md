@@ -1,11 +1,24 @@
 # Zilarc DEX
 
-**Decentralized Exchange on Arc Network** — Swap, provide liquidity, and bridge USDC across chains via Circle CCTP.
+### Decentralized Exchange on Arc Network
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Network](https://img.shields.io/badge/Network-Arc%20Testnet-orange.svg)](https://testnet.arcscan.app)
-[![Stack](https://img.shields.io/badge/Stack-TanStack%20Start-FF4154?logo=react&logoColor=white)](https://tanstack.com/start)
-[![Chain](https://img.shields.io/badge/Chain-USDC%20native%20gas-3B82F6?logo=ethereum&logoColor=white)](https://arc.network)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Network: Arc Testnet](https://img.shields.io/badge/Network-Arc%20Testnet-orange?style=flat)](https://testnet.arcscan.app)
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?style=flat)](https://vercel.com)
+
+---
+
+> Swap, Bridge & Earn - the modern DEX for USDC, EURC & Z tokens on Arc.
+
+<p align="center">
+  <img src="public/icons/zilarc.svg" alt="Zilarc" width="120" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Swap-Multi--Token-4F46E5?style=for-the-badge" alt="Swap">
+  <img src="https://img.shields.io/badge/Bridge-Cross--Chain-FF6B6B?style=for-the-badge" alt="Bridge">
+  <img src="https://img.shields.io/badge/Pool-Liquidity-10B981?style=for-the-badge" alt="Pool">
+</p>
 
 ---
 
