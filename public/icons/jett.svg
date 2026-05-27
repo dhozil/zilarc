@@ -1,0 +1,14 @@
+<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="jettGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A0C4FF"/>
+      <stop offset="50%" stop-color="#BDC3C7"/>
+      <stop offset="100%" stop-color="#5B9BD5"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="36" height="36" rx="9" fill="#0F0F14"/>
+  <path d="M8 30 L20 8 L32 30" fill="none" stroke="url(#jettGrad)" stroke-width="1.5" stroke-opacity="0.35"/>
+  <text x="20" y="29" text-anchor="middle" font-size="20" font-weight="900" font-family="Arial Black, system-ui" fill="url(#jettGrad)">J</text>
+  <circle cx="7" cy="7" r="1.5" fill="#A0C4FF" opacity="0.7"/>
+  <circle cx="33" cy="33" r="1" fill="#5B9BD5" opacity="0.7"/>
+</svg>

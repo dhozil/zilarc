@@ -1,0 +1,14 @@
+<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bridge icon: two chain ends connected by a bridge line -->
+  <!-- Left chain node -->
+  <circle cx="9" cy="20" r="5" fill="#00B37E" opacity="0.9"/>
+  <!-- Right chain node -->
+  <circle cx="31" cy="20" r="5" fill="#00B37E" opacity="0.9"/>
+  <!-- Bridge span -->
+  <rect x="14" y="18" width="12" height="4" rx="2" fill="#00B37E" opacity="0.7"/>
+  <!-- Bridge pylon supports -->
+  <rect x="15" y="22" width="2.5" height="6" rx="1" fill="#00B37E" opacity="0.4"/>
+  <rect x="22.5" y="22" width="2.5" height="6" rx="1" fill="#00B37E" opacity="0.4"/>
+  <!-- Bridge top arch -->
+  <path d="M9 15 Q20 8 31 15" stroke="#00B37E" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+</svg>

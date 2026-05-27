@@ -1,0 +1,9 @@
+<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Two overlapping arrows indicating swap/exchange -->
+  <!-- Top arrow (points right-down) -->
+  <path d="M11 12h13a5 5 0 0 1 0 10H12" stroke="#00B37E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M22 22l3-3-3-3" stroke="#00B37E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Bottom arrow (points left-up) -->
+  <path d="M29 28H16a5 5 0 0 1 0-10h12" stroke="#00B37E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M18 18l-3 3 3 3" stroke="#00B37E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

@@ -1,0 +1,72 @@
+# Dependencies
+node_modules/
+
+# Testing
+coverage/
+
+# Production build
+dist/
+dist-ssr/
+build/
+.output/
+.vercel/
+
+# Vite (TanStack Start / Vite)
+.vite/
+*.local
+.tanstack/
+
+# Nitro
+.nitro/
+
+# Wrangler / Cloudflare
+.wrangler/
+.dev.vars
+
+# Foundry
+out/
+cache/
+broadcast/
+foundry.lock
+
+# Script outputs / deployments
+deployments/
+
+# Environment variables (full protection - never commit)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Misc
+.DS_Store
+*.pem
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporary files
+tmp/
+temp/
+*.tmp
