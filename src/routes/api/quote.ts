@@ -1,13 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { AppKit } from "@circle-fin/app-kit";
-import { createViemAdapterFromPrivateKey } from "@circle-fin/adapter-viem-v2";
 
 /**
  * POST /api/quote — App Kit swap estimate (server-side).
  *
  * Why server-side: kit.estimateSwap() requires a kit key. Kit keys are
  * server-side secrets (see .env.example). The browser never sees them.
+ *
+ * App Kit and its Solana CommonJS dependencies are loaded lazily inside
+ * the handler so they never enter the SSR bundle for unrelated routes.
  *
  * Request body:
  *   { chain: "Arc_Testnet", tokenIn: string, tokenOut: string, amountIn: string }
@@ -42,6 +43,11 @@ export const Route = createFileRoute("/api/quote")({
         }
 
         try {
+          const [{ AppKit }, { createViemAdapterFromPrivateKey }] = await Promise.all([
+            import("@circle-fin/app-kit"),
+            import("@circle-fin/adapter-viem-v2"),
+          ]);
+
           const kit = new AppKit();
           const adapter = createViemAdapterFromPrivateKey({
             privateKey: PRIVATE_KEY as `0x${string}`,

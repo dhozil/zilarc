@@ -1,7 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { AppKit } from "@circle-fin/app-kit";
-import { createViemAdapterFromPrivateKey } from "@circle-fin/adapter-viem-v2";
 
 /**
  * POST /api/swap — App Kit swap execution (server-side).
@@ -9,6 +7,11 @@ import { createViemAdapterFromPrivateKey } from "@circle-fin/adapter-viem-v2";
  * Why server-side: kit.swap() requires a kit key + signing key. Both are
  * server-side secrets. The browser only sends the user's intent and
  * their connected wallet address.
+ *
+ * App Kit and its Solana CommonJS dependencies are loaded lazily inside
+ * the handler so they never enter the SSR bundle for unrelated routes
+ * (which previously crashed the function with `ReferenceError: exports
+ * is not defined in ES module scope` from @coral-xyz/anchor).
  *
  * Request body:
  *   {
@@ -68,6 +71,11 @@ export const Route = createFileRoute("/api/swap")({
         if (stopLimit != null)   config.stopLimit   = String(stopLimit);
 
         try {
+          const [{ AppKit }, { createViemAdapterFromPrivateKey }] = await Promise.all([
+            import("@circle-fin/app-kit"),
+            import("@circle-fin/adapter-viem-v2"),
+          ]);
+
           const kit = new AppKit();
           const adapter = createViemAdapterFromPrivateKey({
             privateKey: PRIVATE_KEY as `0x${string}`,

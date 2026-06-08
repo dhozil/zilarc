@@ -1,4 +1,28 @@
-export function renderErrorPage(): string {
+/**
+ * Branded fallback page rendered when SSR throws.
+ *
+ * `errorDetails` is an optional `{ message, stack }` payload. When present,
+ * it's rendered into a collapsed `<details>` block so testnet operators
+ * can copy/paste the failure straight from the browser instead of
+ * digging through Vercel runtime logs. Leave it `undefined` in production
+ * to revert to the user-friendly version.
+ */
+export function renderErrorPage(errorDetails?: { message?: string; stack?: string }): string {
+  const escape = (s: string) =>
+    s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
+  const detailsBlock = errorDetails
+    ? `<details style="margin-top:1.25rem;text-align:left;">
+        <summary style="cursor:pointer;color:#6b7280;font-size:13px;">Show technical details</summary>
+        <pre style="margin-top:0.75rem;padding:0.75rem;background:#f3f4f6;border-radius:0.375rem;overflow:auto;font-size:12px;line-height:1.4;text-align:left;white-space:pre-wrap;word-break:break-word;">${escape(errorDetails.stack ?? errorDetails.message ?? "(no details)")}</pre>
+      </details>`
+    : "";
+
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -7,7 +31,7 @@ export function renderErrorPage(): string {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       body { font: 15px/1.5 system-ui, -apple-system, sans-serif; background: #fafafa; color: #111; display: grid; place-items: center; min-height: 100vh; margin: 0; padding: 1.5rem; }
-      .card { max-width: 28rem; width: 100%; text-align: center; padding: 2rem; }
+      .card { max-width: 36rem; width: 100%; text-align: center; padding: 2rem; }
       h1 { font-size: 1.25rem; margin: 0 0 0.5rem; }
       p { color: #4b5563; margin: 0 0 1.5rem; }
       .actions { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
@@ -24,6 +48,7 @@ export function renderErrorPage(): string {
         <button class="primary" onclick="location.reload()">Try again</button>
         <a class="secondary" href="/">Go home</a>
       </div>
+      ${detailsBlock}
     </div>
   </body>
 </html>`;

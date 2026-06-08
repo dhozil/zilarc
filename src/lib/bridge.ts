@@ -1,5 +1,3 @@
-import { AppKit } from "@circle-fin/app-kit";
-import { createViemAdapterFromProvider } from "@circle-fin/adapter-viem-v2";
 import type { EIP1193Provider } from "viem";
 
 // Chain name mapping untuk Circle App Kit
@@ -92,6 +90,16 @@ function safeLog(label: string, data: any) {
 }
 
 // Bridge USDC using Circle App Kit
+//
+// App Kit and its Solana CommonJS dependencies (@coral-xyz/anchor,
+// @solana/web3.js, etc.) only need to load when the user actually
+// triggers a bridge — they're never reached during SSR. Importing them
+// at module top level used to drag the Anchor CJS module into Nitro's
+// server bundle, which crashed every Vercel function with
+// `ReferenceError: exports is not defined in ES module scope`.
+//
+// Lazy dynamic imports inside the handler keep that whole graph in
+// the browser bundle only.
 export async function bridgeUSDC({
   provider,
   fromChain,
@@ -106,6 +114,11 @@ export async function bridgeUSDC({
   onProgress?: (step: string, data: any) => void;
 }): Promise<BridgeResult> {
   console.log("=== Starting Bridge ===");
+
+  const [{ AppKit }, { createViemAdapterFromProvider }] = await Promise.all([
+    import("@circle-fin/app-kit"),
+    import("@circle-fin/adapter-viem-v2"),
+  ]);
 
   const adapter = await createViemAdapterFromProvider({ provider });
   console.log("Adapter created");
