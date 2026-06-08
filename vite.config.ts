@@ -15,17 +15,41 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['buffer'],
+    include: ["buffer"],
   },
   define: {
-    'process.env.BUFFER_SIZE': '1024',
+    "process.env.BUFFER_SIZE": "1024",
   },
   build: {
-    target: 'esnext',
+    target: "esnext",
   },
   plugins: [
     nitro({
       preset: "vercel",
+      // CommonJS Solana packages dragged in transitively via Circle App
+      // Kit (@coral-xyz/anchor and friends) crash on Vercel's ESM
+      // runtime with `ReferenceError: exports is not defined`. Treat
+      // them as external so Node's CJS loader handles them at runtime
+      // instead of Nitro's ESM bundler.
+      externals: {
+        external: [
+          "@coral-xyz/anchor",
+          "@coral-xyz/borsh",
+          "@solana/web3.js",
+          "@solana/spl-token",
+          "@solana/buffer-layout",
+          "@solana/buffer-layout-utils",
+          "rpc-websockets",
+        ],
+      },
+      rollupConfig: {
+        output: {
+          // Belt-and-suspenders: also let Rollup itself externalize
+          // these so the bundle output never contains their CommonJS
+          // glue code.
+          inlineDynamicImports: false,
+        },
+      },
     }),
   ],
 });
