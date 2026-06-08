@@ -1,0 +1,230 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-mint: var(--mint);
+  --color-mint-bright: var(--mint-bright);
+  --color-deep: var(--deep);
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --radius: 1rem;
+
+  /* Neon Mint palette */
+  --background: oklch(0.18 0.04 220);
+  --foreground: oklch(0.97 0.01 180);
+
+  --card: oklch(0.22 0.045 220);
+  --card-foreground: oklch(0.97 0.01 180);
+
+  --popover: oklch(0.2 0.045 220);
+  --popover-foreground: oklch(0.97 0.01 180);
+
+  --primary: oklch(0.82 0.18 165);
+  --primary-foreground: oklch(0.15 0.04 220);
+
+  --secondary: oklch(0.35 0.08 175);
+  --secondary-foreground: oklch(0.97 0.01 180);
+
+  --muted: oklch(0.27 0.04 220);
+  --muted-foreground: oklch(0.72 0.03 200);
+
+  --accent: oklch(0.88 0.2 160);
+  --accent-foreground: oklch(0.15 0.04 220);
+
+  --destructive: oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.98 0.01 0);
+
+  --success: oklch(0.82 0.18 165);
+  --warning: oklch(0.82 0.16 85);
+
+  --border: oklch(0.32 0.05 200 / 0.5);
+  --input: oklch(0.28 0.05 220);
+  --ring: oklch(0.82 0.18 165);
+
+  --mint: oklch(0.78 0.16 170);
+  --mint-bright: oklch(0.9 0.2 160);
+  --deep: oklch(0.13 0.05 230);
+
+  /* Gradients */
+  --gradient-mint: linear-gradient(135deg, oklch(0.82 0.18 165), oklch(0.9 0.2 160));
+  --gradient-deep: linear-gradient(180deg, oklch(0.18 0.04 220), oklch(0.13 0.05 235));
+  --gradient-glow: radial-gradient(circle at 50% 0%, oklch(0.82 0.18 165 / 0.25), transparent 60%);
+  --gradient-text: linear-gradient(135deg, oklch(0.95 0.18 160), oklch(0.78 0.16 175) 50%, oklch(0.7 0.18 200));
+  --gradient-border: linear-gradient(135deg, oklch(0.82 0.18 165 / 0.6), oklch(0.7 0.18 200 / 0.2));
+
+  /* Shadows */
+  --shadow-glow: 0 0 40px oklch(0.82 0.18 165 / 0.3);
+  --shadow-card: 0 8px 32px oklch(0.1 0.04 220 / 0.5);
+  --shadow-mint: 0 10px 40px -10px oklch(0.82 0.18 165 / 0.5);
+
+  --sidebar: oklch(0.2 0.04 220);
+  --sidebar-foreground: oklch(0.97 0.01 180);
+  --sidebar-primary: oklch(0.82 0.18 165);
+  --sidebar-primary-foreground: oklch(0.15 0.04 220);
+  --sidebar-accent: oklch(0.27 0.04 220);
+  --sidebar-accent-foreground: oklch(0.97 0.01 180);
+  --sidebar-border: oklch(0.32 0.05 200 / 0.5);
+  --sidebar-ring: oklch(0.82 0.18 165);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html, body {
+    background: var(--deep);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background-image: var(--gradient-glow), var(--gradient-deep);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  /* Default cursor affordance for interactive elements.
+   * Tailwind v4 ships with `cursor: default` on buttons by user-agent
+   * preference; we restore the conventional `pointer` for any clickable
+   * control (button, link, role=button, summary, label-for-input) and
+   * downgrade to `not-allowed` when disabled. Applies to swap, bridge,
+   * pool, and every other interactive surface in the app. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href],
+  summary,
+  label[for],
+  select:not(:disabled),
+  input[type="submit"]:not(:disabled),
+  input[type="button"]:not(:disabled),
+  input[type="reset"]:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [role="button"][aria-disabled="true"],
+  select:disabled,
+  input:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-gradient-mint { background: var(--gradient-mint); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .shadow-mint { box-shadow: var(--shadow-mint); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+
+  .glass {
+    background: oklch(0.22 0.045 220 / 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid oklch(0.5 0.08 180 / 0.15);
+  }
+
+  .bento-card {
+    position: relative;
+    background: oklch(0.22 0.045 220 / 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid oklch(0.5 0.08 180 / 0.15);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .bento-card:hover {
+    border-color: oklch(0.82 0.18 165 / 0.4);
+    box-shadow: var(--shadow-mint);
+    transform: translateY(-2px);
+  }
+  .bento-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(600px circle at var(--x, 50%) var(--y, 0%), oklch(0.82 0.18 165 / 0.08), transparent 40%);
+    pointer-events: none;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(oklch(0.5 0.08 180 / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.5 0.08 180 / 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .glow-dot {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 oklch(0.82 0.18 165 / 0.6); }
+    70% { box-shadow: 0 0 0 14px oklch(0.82 0.18 165 / 0); }
+    100% { box-shadow: 0 0 0 0 oklch(0.82 0.18 165 / 0); }
+  }
+  .pulse-ring { animation: pulse-ring 2s infinite; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .float { animation: float 6s ease-in-out infinite; }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .shimmer {
+    background: linear-gradient(90deg, transparent, oklch(0.82 0.18 165 / 0.15), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+}
