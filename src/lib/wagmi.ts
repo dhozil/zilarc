@@ -1,6 +1,6 @@
 import { http, createConfig } from "wagmi";
 import { sepolia, arbitrum, base, optimism, polygon, avalanche, linea } from "viem/chains";
-import { coinbaseWallet, injected } from "wagmi/connectors";
+import { injected } from "wagmi/connectors";
 
 // Arc Testnet RPC - Circle
 const ARC_RPC_URL = import.meta.env.VITE_ARC_RPC_URL || "https://rpc.testnet.arc.network";
@@ -92,10 +92,18 @@ export const CCTP_DOMAINS = {
 } as const;
 
 export const config = createConfig({
+  // ssr: true switches wagmi to a server-safe storage shim and defers
+  // hydration so the WagmiProvider tree can render under TanStack Start
+  // without touching window/IndexedDB at SSR time.
+  ssr: true,
   chains: [arcTestnet, sepolia, arbitrum, base, optimism, polygon, avalanche, linea],
   connectors: [
+    // Browser-extension wallet (MetaMask, etc.). The Coinbase Wallet
+    // connector that previously sat alongside this one initialised an
+    // SDK at module load that touched window globals, which crashed
+    // SSR on Vercel; drop it for now and add it back through a lazy
+    // import if/when we need it.
     injected(),
-    coinbaseWallet({ appName: "Zilarc" }),
   ],
   transports: {
     [arcTestnet.id]: http(ARC_RPC_URL),
